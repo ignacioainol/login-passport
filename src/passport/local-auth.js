@@ -17,9 +17,9 @@ passport.use('local-signup', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req,email,password,done) => {
-    const user = new User();
-    user.email = email;
-    user.password = password;
-    await user.save();
-    done(null, user);
+    const newUser = new User();
+    newUser.email = email;
+    newUser.password = newUser.encryptPassword(password);
+    await newUser.save();
+    done(null, newUser);
 }))

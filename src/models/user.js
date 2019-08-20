@@ -7,7 +7,6 @@ const userSchema = new Schema({
     password: String 
 });
 
-
 //las funciones de abajo retornan true o false
 userSchema.methods.encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
