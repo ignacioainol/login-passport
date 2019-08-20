@@ -26,6 +26,25 @@ router.post('/signin', passport.authenticate('local-signin',{
     passReqToCallback: true
 }));
 
+router.get('/logout',(req,res,next) => {
+    req.logout();
+    res.redirect('/');
+});
+
+function isAuthenticated(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/');
+}
+
+//esto protege varias rutas. Es un middleware
+//las rutas debajo de ella estaran protegidas o se checkeara el logeo
+router.use((req,res,next) => {
+    isAuthenticated(req,res,next);
+    next();
+});
+
 router.get('/profile',(req,res,next) => {
     res.render('profile');
 });
