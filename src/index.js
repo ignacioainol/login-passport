@@ -4,6 +4,7 @@ const path = require('path');
 const morgan = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 //Initializations
 const app = express();
@@ -24,8 +25,18 @@ app.use(session({
     resave: false,
     saveUnitialized: false
 }));
+//flash debe ir antes de passport y despues de session :D
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+//creo un middleware para que los mensajes de flash sean variables locales
+//y para que esten accequible de todos lados
+app.use((req,res,next) => {
+    app.locals.signupMessage = req.flash('signupMessage');
+    //si no se añade el next, el navegador quedara cargando infinitamente
+    next();
+})
 
 //Routes
 app.use(require('./routes/index'));
