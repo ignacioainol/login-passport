@@ -1,8 +1,12 @@
 const express = require('express');
 const engine = require('ejs-mate');
 const path = require('path');
-const app = express();
 const morgan = require('morgan');
+
+//Initializations
+const app = express();
+require('./database');
+
 
 //settings
 app.set('views',path.join(__dirname,'views'));
@@ -12,6 +16,7 @@ app.set('port', process.env.PORT || 3000);
 
 //middlewares
 app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));
 
 //Routes
 app.use(require('./routes/index'));

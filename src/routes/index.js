@@ -6,11 +6,12 @@ router.get('/',(req,res) => {
 });
 
 router.get('/signup',(req,res,next) => {
-    
+    res.render('signup');
 });
 
 router.post('/signup',(req,res,next) => {
-    
+    console.log(req.body);
+    res.send('received');
 });
 
 router.get('/signin',(req,res,next) => {
