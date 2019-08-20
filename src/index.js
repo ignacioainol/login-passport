@@ -34,6 +34,7 @@ app.use(passport.session());
 //y para que esten accequible de todos lados
 app.use((req,res,next) => {
     app.locals.signupMessage = req.flash('signupMessage');
+    app.locals.signinMessage = req.flash('signinMessage');
     //si no se añade el next, el navegador quedara cargando infinitamente
     next();
 })
